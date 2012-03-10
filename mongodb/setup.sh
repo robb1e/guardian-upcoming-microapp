@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mongodir=~/mongo/whats-next
+mongodir=~/mongo/upcoming
 mongoversion=2.0.0
 
 function error_exit
@@ -56,7 +56,7 @@ cp `dirname "$0"`/admin-setup.js $mongodir || error_exit "Failed to copy setup f
 
 cd $mongodir
 
-echo "Creating whats-next secret key file"
+echo "Creating upcoming secret key file"
 echo "flexiblecontent secret key" > keyFile
 chmod 0600 keyFile
 
@@ -79,7 +79,7 @@ $mongodir/$mongoPath/bin/mongod --dbpath $mongodir/db/node1 \
 	--pidfilepath $mongodir/mongo.pid \
 	--fork \
 	--directoryperdb \
-	--replSet whats-next-replica \
+	--replSet upcoming-replica \
 	--port 27017
 
 echo "Starting mongodb node-2"
@@ -92,7 +92,7 @@ $mongodir/$mongoPath/bin/mongod --dbpath $mongodir/db/node2 \
 	--pidfilepath $mongodir/mongo.pid \
 	--fork \
 	--directoryperdb \
-	--replSet whats-next-replica \
+	--replSet upcoming-replica \
 	--port 27018 
 
 
@@ -106,7 +106,7 @@ $mongodir/$mongoPath/bin/mongod --dbpath $mongodir/db/node3 \
 	--pidfilepath $mongodir/mongo.pid \
 	--fork \
 	--directoryperdb \
-	--replSet whats-next-replica \
+	--replSet upcoming-replica \
 	--port 27019 
 
 echo Wait 40 secs to let the nodes start up
@@ -118,7 +118,7 @@ done
 
 echo Init the replica sets
 
-$mongodir/$mongoPath/bin/mongo admin --eval  'printjson(db.runCommand({"replSetInitiate" : {"_id" : "whats-next-replica", "members" : [ { "_id" : 1, "host" : "localhost:27017" }, {"_id" : 2, "host" :"localhost:27018" },{"_id" : 3, "host" : "localhost:27019"}]}}))' || echo "Failed to execute replica set - probably OK"
+$mongodir/$mongoPath/bin/mongo admin --eval  'printjson(db.runCommand({"replSetInitiate" : {"_id" : "upcoming-replica", "members" : [ { "_id" : 1, "host" : "localhost:27017" }, {"_id" : 2, "host" :"localhost:27018" },{"_id" : 3, "host" : "localhost:27019"}]}}))' || echo "Failed to execute replica set - probably OK"
 
 echo Wait 30 secs for the replica set
 for i in {1..30}

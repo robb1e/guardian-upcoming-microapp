@@ -2,7 +2,7 @@ import com.typesafe.sbtscalariform._
 
 organization := "com.gu"
 
-name := "whats-next"
+name := "upcoming"
 
 version := "0.1"
 
@@ -28,7 +28,10 @@ libraryDependencies ++= Seq(
   "com.gu" %% "management-logback" % "5.6.4",
   "com.gu" %% "management-mongo" % "5.6.4",
   "com.gu" %% "scalatra-openid-consumer" % "0.1.5",
-  "com.gu" %% "configuration" % "3.6"
+  "com.gu" %% "configuration" % "3.6",
+  "com.gu" %% "integration-tools" % "1.4" % "test",
+  "net.databinder" %% "dispatch-http" % "0.8.8" % "test",
+  "org.scalatest" %% "scalatest" % "1.7.1" % "test"
 )
 
 seq(ScalariformPlugin.settings: _*)

@@ -1,0 +1,4 @@
+<% import com.gu.upcoming.models._ %>
+<%@ val event: Event %>
+
+${event.description}

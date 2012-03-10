@@ -1,1 +1,12 @@
+<% import com.gu.upcoming.models._ %>
+<%@ val events: List[Event] %>
+
 Hello, this page is protected.
+
+<ul>
+#for(event <- events)
+	<li>
+	${event.description}
+	</li>
+#end
+</ul>

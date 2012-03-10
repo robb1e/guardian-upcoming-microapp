@@ -1,4 +1,4 @@
-package com.gu.whatsnext.management
+package com.gu.upcoming.management
 
 import com.gu.management._
 import request._

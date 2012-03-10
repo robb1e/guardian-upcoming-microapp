@@ -1,4 +1,4 @@
-package com.gu.whatsnext.filters
+package com.gu.upcoming.filters
 
 import org.scalatra._
 import com.gu.scalatra._

@@ -1,8 +1,8 @@
-package com.gu.whatsnext.filters
+package com.gu.upcoming.filters
 
 import com.gu.management._
 import logback.LogbackLevelPage
-import com.gu.whatsnext.management._
+import com.gu.upcoming.management._
 
 class Management extends ManagementFilter {
   lazy val pages =

@@ -7,12 +7,12 @@
 
 	<servlet>
 		<servlet-name>scalatra</servlet-name>
-		<servlet-class>com.gu.whatsnext.servlets.WhatsNext</servlet-class>
+		<servlet-class>com.gu.upcoming.servlets.UpcomingServlet</servlet-class>
 	</servlet>
 	
 	<filter>
 		<filter-name>management</filter-name>
-		<filter-class>com.gu.whatsnext.filters.Management</filter-class>
+		<filter-class>com.gu.upcoming.filters.Management</filter-class>
 	</filter>
 	
     <filter>
@@ -37,7 +37,7 @@
 
 	<filter>
 		<filter-name>openid-filter</filter-name>
-		<filter-class>com.gu.whatsnext.filters.Admin</filter-class>
+		<filter-class>com.gu.upcoming.filters.Admin</filter-class>
 	</filter>
 
 	<servlet-mapping>

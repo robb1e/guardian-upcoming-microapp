@@ -17,10 +17,10 @@ if(resultOFAuth === 0) {
 		if(initialAuth === 0) { // bit off a hack - establishes whether script has already run
 			adminDb.addUser("admin","admin"); 
 			adminDb.auth("admin","admin");  
-            var flexibleContentDb = conn.getDB("whats-next");
-            var flexibleContentTestDB = conn.getDB("whats-next-test");
-            flexibleContentDb.addUser("whatsnext","whatsnext");
-            flexibleContentTestDB.addUser("whatsnext", "whatsnext");
+            var upcomingDb = conn.getDB("upcoming");
+            var upcomingTestDB = conn.getDB("upcoming-test");
+            upcomingDb.addUser("upcoming","upcoming");
+            upcomingTestDB.addUser("upcoming", "upcoming");
 		}
 	}
 }
