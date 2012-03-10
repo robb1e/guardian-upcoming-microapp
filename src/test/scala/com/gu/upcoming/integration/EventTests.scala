@@ -16,9 +16,18 @@ class EventTests extends RequiresRunningApplication {
       post(eventResourceUri, Map("description" -> description))
       then("it should be in the database")
       val event = getEventByDescription(description)
-      and("we should retrieve that event through the web")
-      val response = get(eventResourceUri + "/" + event.id)
-      response should include(description)
+      and("we should retrieve that event through the id")
+
+      {
+        val response = get(eventResourceUri + "/" + event.id)
+        response should include(description)
+      }
+      and("we should see the event on the events page")
+
+      {
+        val response = get(eventResourceUri)
+        response should include(description)
+      }
     }
 
   }

@@ -23,6 +23,11 @@ class UpcomingServlet extends GuardianScalatraServlet {
     Event.upsert(event)
   }
 
+  get("/event") {
+    val events = Event.all
+    render("events", Map("events" -> events))
+  }
+
   get("/event/:id") {
     val event = Event.find(params("id")) getOrElse halt(status = 404, reason = "Event not found")
     render("event", Map("event" -> event))

@@ -1,0 +1,10 @@
+<% import com.gu.upcoming.models._ %>
+<%@ val events: List[Event] %>
+
+<ul>
+#for(event <- events)
+	<li>
+	<% render("event.ssp", Map("event" -> event)) %>
+	</li>
+#end
+</ul>
