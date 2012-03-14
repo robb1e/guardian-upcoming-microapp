@@ -1,6 +1,21 @@
 <% import com.gu.upcoming.models._ %>
 <%@ val events: List[Event] %>
+<%@ val from: String = "" %>
+<%@ val to: String = "" %>
 
 Hello, this page is protected.
+
+<form action="/event" method="post">
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description" placeholder="Amazing live blog!"/>
+    <label for="displayFrom">Display from</label>
+    <input type="date" name="displayFrom" id="displayFrom" placeholder="${from}"/>
+    <label for="displayUntil">Display until</label>
+    <input type="date" name="displayUntil" id="displayUntil" placeholder="${to}"/>
+
+    <p>For now, all times must use GMT/UTC.</p>
+
+    <input type="submit" value="Create"/>
+</form>
 
 <% render("partials/events.ssp", Map("events" -> events)) %>

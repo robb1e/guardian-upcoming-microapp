@@ -31,7 +31,8 @@ libraryDependencies ++= Seq(
   "com.gu" %% "configuration" % "3.6",
   "com.gu" %% "integration-tools" % "1.4" % "test",
   "net.databinder" %% "dispatch-http" % "0.8.8" % "test",
-  "org.scalatest" %% "scalatest" % "1.7.1" % "test"
+  "org.scalatest" %% "scalatest" % "1.7.1" % "test",
+  "commons-lang" % "commons-lang" % "2.2" % "test"
 )
 
 seq(ScalariformPlugin.settings: _*)

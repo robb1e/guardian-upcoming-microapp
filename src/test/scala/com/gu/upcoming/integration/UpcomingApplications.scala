@@ -23,11 +23,11 @@ trait RequiresRunningApplication extends Suite with BeforeAndAfterAll with Featu
 
   override protected def beforeAll() {
     UpcomingApplications.start
-    Event.all.map(event => Event.delete(event))
+    Event.all().map(event => Event.delete(event))
   }
 
   override protected def afterAll() {
     UpcomingApplications.stopUnlessSomeoneCallsStartAgainSoon
-    Event.all.map(event => Event.delete(event))
+    Event.all().map(event => Event.delete(event))
   }
 }
