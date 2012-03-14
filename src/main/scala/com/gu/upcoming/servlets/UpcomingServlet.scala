@@ -1,10 +1,13 @@
 package com.gu.upcoming.servlets
 
-import com.gu.scalatra._
-import com.gu.upcoming.models._
+import com.gu._
+import scalatra._
+import presenters._
+import upcoming.models._
+
 import org.joda.time.format.DateTimeFormat
 import java.util.Locale
-import org.joda.time.{ DateTimeZone, DateTime }
+import org.joda.time.{ DateTimeZone, DateTime, Period }
 
 class UpcomingServlet extends GuardianScalatraServlet {
 
@@ -39,8 +42,12 @@ class UpcomingServlet extends GuardianScalatraServlet {
   }
 
   get("/event/:id") {
-    val event = Event.find(params("id")) getOrElse halt(status = 404, reason = "Event not found")
-    render("event", Map("event" -> event))
+    val event = Event.find(params("id")) getOrElse halt(status = 404, reason = "Event not found.")
+    if (event.displayUntil.getMillis < new DateTime().getMillis) halt(status = 410, reason = "That event has expired.")
+
+    val diff = DateTimePeriodPresenter(new Period(new DateTime(), event.displayUntil))
+
+    render("event", Map("event" -> event, "diff" -> diff))
   }
 
   lazy val rfc1123DateFormat = DateTimeFormat

@@ -1,4 +1,9 @@
 <% import com.gu.upcoming.models._ %>
+<% import com.gu.presenters._ %>
+<% import org.joda.time._ %>
 <%@ val event: Event %>
+<%@ val diff: DateTimePeriodPresenter %>
+
+${diff}
 
 <% render("partials/event.ssp", Map("event" -> event)) %>

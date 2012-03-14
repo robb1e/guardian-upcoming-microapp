@@ -4,6 +4,7 @@ import com.gu.integration.IntegrationHttpClient._
 import com.gu.upcoming.models.Event
 import org.apache.commons.lang.RandomStringUtils
 import org.joda.time.DateTime
+import dispatch._
 
 class EventTests extends RequiresRunningApplication {
 
@@ -24,19 +25,19 @@ class EventTests extends RequiresRunningApplication {
     scenario("with until date only") {
       val event = createAndAssertEvent((description: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "displayUntil" -> "Mon, 12 Mar 2012 14:00:00 GMT"))
+        post(eventResourceUri, Map("description" -> description, "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT"))
       })
-      event.displayUntil.dayOfMonth().getAsText should be("12")
+      event.displayUntil.dayOfMonth().getAsText should be("3")
     }
 
     scenario("with from and until date") {
       val event = createAndAssertEvent((description: String) => {
         when("We hit the HTTP inteface to create an event")
         post(eventResourceUri, Map("description" -> description,
-          "displayUntil" -> "Mon, 12 Mar 2012 14:00:00 GMT",
-          "displayFrom" -> "Sun, 11 Mar 2012 14:00:00 GMT"))
+          "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT",
+          "displayFrom" -> "Wed, 1 Jan 2014 14:00:00 GMT"))
       })
-      event.displayFrom.dayOfMonth().getAsText should be("11")
+      event.displayFrom.dayOfMonth().getAsText should be("1")
     }
 
     scenario("with event type of promotion") {
@@ -76,6 +77,27 @@ class EventTests extends RequiresRunningApplication {
       val response = get(uri = eventResourceUri, params = Map("eventType" -> "promotion"))
       response should include(promoEvent.description)
       response should not include (nonPromoEvent.description)
+    }
+
+    scenario("should return GONE when expired") {
+      val event = createEvent("promotion", new DateTime().minusDays(1))
+      try {
+        get(eventResourceUri + "/" + event.id)
+        fail("why haven't I failed yet?")
+      } catch {
+        case ex: StatusCode if (ex.code == 410) => // good boy
+        case _ => fail("was expecting a 410 for expired")
+      }
+    }
+
+    scenario("should return NOT FOUND when event does not exist") {
+      try {
+        get(eventResourceUri + "/foo")
+        fail("why haven't I failed yet?")
+      } catch {
+        case ex: StatusCode if (ex.code == 404) => // good boy
+        case _ => fail("was expecting a 404 for rubbish id")
+      }
     }
 
     def createEvent(eventType: String, displayUntil: DateTime) = {
