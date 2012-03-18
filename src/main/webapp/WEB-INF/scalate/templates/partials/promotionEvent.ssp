@@ -1,0 +1,7 @@
+<% import com.gu.upcoming.models._ %>
+<% import com.gu.presenters._ %>
+<%@ val event: Event %>
+
+<p>${event.title}</p>
+
+<p>${event.description}</p>

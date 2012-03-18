@@ -13,37 +13,46 @@ class EventTests extends RequiresRunningApplication {
 
   def createDescription = RandomStringUtils.randomAlphabetic(8)
 
+  def createTitle = RandomStringUtils.randomAlphabetic(8)
+
+  def createEvent(eventType: String, displayUntil: DateTime) = {
+    val event = Event(description = createDescription, title = createTitle, eventType = eventType, displayUntil = displayUntil)
+    Event.upsert(event)
+    event
+  }
+
   feature("Creating events") {
 
     scenario("with default options") {
-      createAndAssertEvent((description: String) => {
+      createAndAssertEvent((description: String, title: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description))
+        post(eventResourceUri, Map("description" -> description, "title" -> title))
       })
     }
 
     scenario("with until date only") {
-      val event = createAndAssertEvent((description: String) => {
+      val event = createAndAssertEvent((description: String, title: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT"))
+        post(eventResourceUri, Map("description" -> description, "title" -> title, "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT"))
       })
       event.displayUntil.dayOfMonth().getAsText should be("3")
     }
 
     scenario("with from and until date") {
-      val event = createAndAssertEvent((description: String) => {
+      val event = createAndAssertEvent((description: String, title: String) => {
         when("We hit the HTTP inteface to create an event")
         post(eventResourceUri, Map("description" -> description,
           "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT",
+          "title" -> title,
           "displayFrom" -> "Wed, 1 Jan 2014 14:00:00 GMT"))
       })
       event.displayFrom.dayOfMonth().getAsText should be("1")
     }
 
     scenario("with event type of promotion") {
-      val event = createAndAssertEvent((description: String) => {
+      val event = createAndAssertEvent((description: String, title: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "eventType" -> "promotion"))
+        post(eventResourceUri, Map("description" -> description, "title" -> title, "eventType" -> "promotion"))
       })
       event.eventType should be("promotion")
     }
@@ -54,15 +63,17 @@ class EventTests extends RequiresRunningApplication {
       events.head
     }
 
-    def createAndAssertEvent(create: String => Unit) = {
+    def createAndAssertEvent(create: (String, String) => Unit) = {
       val description = createDescription
-      create(description)
+      val title = createTitle
+      create(description, title)
       then("it should be in the database")
       val event = getEventByDescription(description)
       and("we should retrieve that event through the id")
       get(eventResourceUri + "/" + event.id) should include(description)
       and("we should see the event on the events page")
       get(eventResourceUri) should include(description)
+      get(eventResourceUri) should include(title)
       event
     }
 
@@ -99,14 +110,20 @@ class EventTests extends RequiresRunningApplication {
         case _ => fail("was expecting a 404 for rubbish id")
       }
     }
+  }
 
-    def createEvent(eventType: String, displayUntil: DateTime) = {
-      val description = createDescription
-      val event = Event(description = description, eventType = eventType, displayUntil = displayUntil)
-      Event.upsert(event)
-      event
+  feature("Editing events") {
+    scenario("should be able to edit existing events") {
+      when("an event exists")
+      val event = createEvent("promotion", new DateTime().plusDays(1))
+      and("I should be able to update it")
+      val params = Map("displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT", "description" -> "updated")
+      put(uri = eventResourceUri + "/" + event.id, params = params)
+      then("when I get the event, it should be updated")
+      val dbEvent = Event.find(event.id) getOrElse fail("Not in db")
+      dbEvent.displayUntil.dayOfMonth().getAsText should be("3")
+      dbEvent.description should be("updated")
     }
-
   }
 
 }

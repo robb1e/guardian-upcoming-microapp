@@ -1,1 +1,13 @@
-Hello
+<h1>Guardian Upcoming Events</h1>
+
+<section id="about">
+	<a name="about"></a>
+	<h2>About</h2>
+	<div>
+		This application is for managing the promotion of events on the Guardian through the Microapp framework. It has two purposes:
+		<ul>
+			<li>Promote an event and display a countdown clock, i.e. "2 days until the last day for Christmas post"</li>
+			<li>Promote an event using descriptive text, i.e. "Visit us this Sunday for our Oscars coverage"</li>
+		</ul>
+	</div>
+</section>

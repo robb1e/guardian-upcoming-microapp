@@ -1,4 +1,5 @@
 <% import com.gu.upcoming.models._ %>
+<% import com.gu.presenters._ %>
 <%@ val event: Event %>
 
-${event.description}
+${event.title} - ${event.description} from <time>${DateTimePresenter.rfc1123(event.displayFrom)}</time> until <time>${DateTimePresenter.rfc1123(event.displayUntil)}</time>

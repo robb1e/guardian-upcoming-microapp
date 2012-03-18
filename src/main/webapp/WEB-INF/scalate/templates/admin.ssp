@@ -1,13 +1,17 @@
 <% import com.gu.upcoming.models._ %>
-<%@ val events: List[Event] %>
+<%@ val upcomingEvents: List[Event] %>
+<%@ val currentEvents: List[Event] %>
+<%@ val priorEvents: List[Event] %>
 <%@ val from: String = "" %>
 <%@ val to: String = "" %>
 
-Hello, this page is protected.
+<h2>Create a new event</h2>
 
 <form action="/event" method="post">
+	<label for="title">Title</label>
+	<input type="text" name="title" id="title" placeholder="Thanksgiving"/>
     <label for="description">Description</label>
-    <input type="text" name="description" id="description" placeholder="Amazing live blog!"/>
+    <input type="text" name="description" id="description" placeholder="Catch the game on NBC"/>
     <label for="displayFrom">Display from</label>
     <input type="date" name="displayFrom" id="displayFrom" placeholder="${from}"/>
     <label for="displayUntil">Display until</label>
@@ -15,7 +19,21 @@ Hello, this page is protected.
 
     <p>For now, all times must use GMT/UTC.</p>
 
+	<p>Event type:</p>
+	<input type="radio" id="eventType-countdown" name="eventType" value="countdown">Countdown<br/>
+	<input type="radio" id="eventType-promotion" name="eventType" value="promotion">Promotion<br/>
+
     <input type="submit" value="Create"/>
 </form>
 
-<% render("partials/events.ssp", Map("events" -> events)) %>
+<h2>Upcoming Events</h2>
+
+<% render("partials/events.ssp", Map("events" -> upcomingEvents)) %>
+
+<h2>Current Events</h2>
+
+<% render("partials/events.ssp", Map("events" -> currentEvents)) %>
+
+<h2>Prior Events</h2>
+
+<% render("partials/events.ssp", Map("events" -> priorEvents)) %>

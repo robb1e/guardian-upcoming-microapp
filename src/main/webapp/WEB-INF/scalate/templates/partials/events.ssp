@@ -4,7 +4,9 @@
 <ul>
 #for(event <- events)
 	<li>
-	<% render("event.ssp", Map("event" -> event)) %>
+		<a href="/event/${event.id}">
+		<% render("event.ssp", Map("event" -> event)) %>
+		</a>
 	</li>
 #end
 </ul>

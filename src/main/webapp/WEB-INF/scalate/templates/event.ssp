@@ -4,6 +4,10 @@
 <%@ val event: Event %>
 <%@ val diff: DateTimePeriodPresenter %>
 
-${diff}
+<div data-time="${event.displayUntil.getMillis}">
+${diff} to go until ${event.title}
+</div>
 
+<div>
 <% render("partials/event.ssp", Map("event" -> event)) %>
+</div>

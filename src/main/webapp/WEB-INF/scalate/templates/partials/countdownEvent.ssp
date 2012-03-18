@@ -1,0 +1,10 @@
+<% import com.gu.upcoming.models._ %>
+<% import com.gu.presenters._ %>
+<%@ val event: Event %>
+<%@ val period: DateTimePeriodPresenter %>
+
+<time>${period}</time>
+
+<p>To go until ${event.title}</p>
+
+<p>${event.description}</p>
