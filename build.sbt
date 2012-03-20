@@ -1,4 +1,5 @@
 import com.typesafe.sbtscalariform._
+import com.typesafe.startscript.StartScriptPlugin
 
 organization := "com.gu"
 
@@ -16,6 +17,8 @@ resolvers ++= Seq(
 )
 
 seq(webSettings :_*)
+
+seq(StartScriptPlugin.startScriptForClassesSettings: _*)
 
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % "2.0.3",

@@ -5,6 +5,8 @@ resolvers ++= Seq(
   Resolver.url("Typesafe repository", new java.net.URL("http://typesafe.artifactoryonline.com/typesafe/ivy-releases/"))(Resolver.defaultIvyPatterns)
 )
 
+resolvers += Classpaths.typesafeResolver
+
 libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.7"))
 
 resolvers += {
@@ -20,3 +22,5 @@ addSbtPlugin("com.typesafe.sbtscalariform" % "sbt-scalariform" % "0.1.4")
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "0.11.0")
 
 addSbtPlugin("com.zentrope" %% "xsbt-scalate-precompile-plugin" % "1.6")
+
+addSbtPlugin("com.typesafe.startscript" % "xsbt-start-script-plugin" % "0.3.0")
