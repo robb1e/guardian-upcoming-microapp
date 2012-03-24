@@ -5,11 +5,13 @@ import scalatra._
 import presenters._
 import upcoming.models._
 
+import org.scalatra._
 import org.joda.time.format.DateTimeFormat
-import java.util.Locale
 import org.joda.time.{ DateTimeZone, DateTime, Period }
 
-class UpcomingServlet extends GuardianScalatraServlet {
+import java.util.Locale
+
+class UpcomingServlet extends GuardianScalatraKernel with ScalatraFilter {
 
   get("/") {
     render("index")

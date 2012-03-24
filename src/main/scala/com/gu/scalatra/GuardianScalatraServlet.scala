@@ -8,7 +8,7 @@ import net.liftweb.json.JsonAST.{ JInt, JValue }
 import net.liftweb.json.Printer._
 import com.gu.management._
 
-class GuardianScalatraServlet extends ScalatraServlet with ScalateSupport with ApiFormats with Loggable {
+trait GuardianScalatraKernel extends ScalatraKernel with ScalateSupport with ApiFormats with Loggable {
 
   lazy val none = 0
   lazy val oneMinute = 60
