@@ -9,7 +9,13 @@ object JettyLauncher {
     val context = new ServletContextHandler(server, "/", ServletContextHandler.SESSIONS)
 
     context.addFilter(classOf[com.gu.upcoming.filters.Admin], "/*", 0)
-    context.addServlet(classOf[com.gu.upcoming.servlets.UpcomingServlet], "/");
+    context.addFilter(classOf[com.gu.management.request.RequestLoggingFilter], "/*", 0)
+    context.addFilter(classOf[com.gu.upcoming.filters.Management], "/management/*", 0)
+
+    context.addFilter(classOf[com.gu.upcoming.servlets.UpcomingServlet], "/*", 0)
+
+    context.addServlet(classOf[DefaultServlet], "/");
+
     context.setResourceBase("src/main/webapp")
 
     server.start

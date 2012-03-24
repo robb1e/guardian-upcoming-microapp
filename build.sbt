@@ -12,6 +12,8 @@ scalaVersion := "2.9.1"
 resolvers ++= Seq(
   "Guardian Github Releases" at "http://guardian.github.com/maven/repo-releases",
   "Sonatype OSS Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
+  "Scala-tools Releases" at "http://scala-tools.org/repo-releases/",
+  "Guice Maven" at "http://guice-maven.googlecode.com/svn/trunk",
   "repo.novus rels" at "http://repo.novus.com/releases/",
   "repo.novus snaps" at "http://repo.novus.com/snapshots/"
 )

@@ -11,6 +11,7 @@ object ConfigurationManager extends MongoDataSource with MongoConfiguration {
   lazy val upcomingCollection = createCollection("upcoming")
 
   lazy val authenticate = config.getStringProperty("authenticate", "true").toBoolean
+  lazy val authenticationReturnUri = config.getStringProperty("authenticate.returnuri", "http://localhost:8080/verify")
 
   lazy val cacheId = {
     val id = Manifest.asKeyValuePairs.get("Build") getOrElse System.currentTimeMillis().toString

@@ -14,7 +14,7 @@ class Admin extends ScalatraFilter with GoogleOpenIdConsumer with GuardianUserAu
   lazy val logoutPath = "/logout"
   lazy val logoutRedirect = "/loggedout"
   lazy val authenticationReturnPath = "/verify"
-  lazy val authenticationReturnUri = "http://localhost:8080/verify"
+  lazy val authenticationReturnUri = ConfigurationManager.authenticationReturnUri
   lazy val secretKey = "12345678"
 
 }
