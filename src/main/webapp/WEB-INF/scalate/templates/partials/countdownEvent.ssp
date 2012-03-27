@@ -7,4 +7,3 @@
 
 <p>To go until ${event.title}</p>
 
-<p>${event.description}</p>

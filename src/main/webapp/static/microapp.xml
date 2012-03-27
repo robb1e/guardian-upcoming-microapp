@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<microapp interface-version="1" name="lists" provider="guardian.co.uk" version="1.0">
+  <components>
+      <component-definition display-name="countdown" name="upcomingCountdown" path="component/event/{key:eventId}" widths="140"/>
+  </components>
+
+  <keys>
+    <key-definition display-name="Event Id" name="eventId"/>
+  </keys>
+</microapp>

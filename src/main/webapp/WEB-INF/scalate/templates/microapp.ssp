@@ -3,13 +3,21 @@
 <%@ val event: Event %>
 <%@ val period: DateTimePeriodPresenter %>
 <% attributes("layout") = "" %>
-
-<div class="hd">
-	<h2>Guardian ${event.eventType}</h2>
+<style>
+	.upcoming-microapp .slotfooter {
+		border-top: 1px dotted #999;
+	}
+</style>
+<div class="upcoming-microapp component">
+	<div class="hd">
+		<h2>Guardian ${event.eventType}</h2>
+	</div>
+	<div class="bd">
+		#if (event.eventType.toLowerCase == "promotion")
+		<% render("partials/promotionEvent.ssp", Map("event" -> event)) %>
+		#else
+		<% render("partials/countdownEvent.ssp", Map("event" -> event)) %>
+		#end
+		<p class="slotfooter">${event.description}</p>
+	</div>
 </div>
-
-#if (event.eventType.toLowerCase == "promotion")
-	<% render("partials/promotionEvent.ssp", Map("event" -> event)) %>
-#else
-	<% render("partials/countdownEvent.ssp", Map("event" -> event)) %>
-#end
