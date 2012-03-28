@@ -18,6 +18,6 @@
 		#else
 		<% render("partials/countdownEvent.ssp", Map("event" -> event)) %>
 		#end
-		<p class="slotfooter">${event.description}</p>
+		<p class="slotfooter">${unescape(event.description)}</p>
 	</div>
 </div>
