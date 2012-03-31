@@ -18,6 +18,13 @@
 		#else
 		<% render("partials/countdownEvent.ssp", Map("event" -> event)) %>
 		#end
-		<p class="slotfooter">${unescape(event.description)}</p>
+		<p class="slotfooter description">${unescape(event.description)}</p>
 	</div>
 </div>
+
+<script>
+	jQ('.upcoming-microapp .description a').click(function(ev){
+	  if (undefined !== s)
+	    s.tl(this, 'e', 'Microapp::Upcoming::' + ${event.description}); 
+	});
+</script>
