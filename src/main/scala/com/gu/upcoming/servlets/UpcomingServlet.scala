@@ -62,7 +62,7 @@ class UpcomingServlet extends GuardianScalatraKernel with ScalatraFilter {
     val event = Event.find(params("id")) getOrElse halt(status = 404, reason = "Event not found.")
     if (event.displayUntil.getMillis < new DateTime().getMillis) halt(status = 410, reason = "That event has expired.")
     val period = DateTimePeriodPresenter(new Period(new DateTime(), event.displayUntil))
-    render("microapp", Map("event" -> event, "period" -> period))
+    render("microapp", Map("event" -> event, "period" -> period), cacheMaxAge = oneMinute)
   }
 
   put("/event/:id") {

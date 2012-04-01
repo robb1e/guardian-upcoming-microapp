@@ -19,7 +19,23 @@ case class Event(@Key("_id") id: String = new ObjectId().toString,
   displayUntil: DateTime,
   description: String,
   title: String,
-  eventType: String = "")
+  eventType: String = "") {
+
+  lazy val isExit = HtmlHelper.href.findFirstIn(description) match {
+    case Some(d) => {
+      val HtmlHelper.href(link) = description
+      val stripped = link.replace("http://", "").replace("www.", "")
+      None == { HtmlHelper.safeLinks find { stripped startsWith _ } }
+    }
+    case None => false
+  }
+
+}
+
+object HtmlHelper {
+  lazy val href = """.*href=["'](.*).*""".r
+  lazy val safeLinks = List("/", "gu.com", "guardian.co.uk", "guardiannews.com")
+}
 
 object Event {
 

@@ -21,10 +21,11 @@
 		<p class="slotfooter description">${unescape(event.description)}</p>
 	</div>
 </div>
-
+#if(event.isExit)
 <script>
 	jQ('.upcoming-microapp .description a').click(function(ev){
 	  if (undefined !== s)
 	    s.tl(this, 'e', 'Microapp::Upcoming::' + ${event.description}); 
 	});
 </script>
+#end

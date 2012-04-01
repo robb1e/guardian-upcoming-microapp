@@ -5,10 +5,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<servlet>
-		<servlet-name>scalatra</servlet-name>
-		<servlet-class>com.gu.upcoming.servlets.UpcomingServlet</servlet-class>
-	</servlet>
+	<filter>
+		<filter-name>scalatra</filter-name>
+		<filter-class>com.gu.upcoming.servlets.UpcomingServlet</filter-class>
+	</filter>
 	
 	<filter>
 		<filter-name>management</filter-name>
@@ -40,10 +40,10 @@
 		<filter-class>com.gu.upcoming.filters.Admin</filter-class>
 	</filter>
 
-	<servlet-mapping>
-		<servlet-name>scalatra</servlet-name>
+	<filter-mapping>
+		<filter-name>scalatra</filter-name>
 		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
+	</filter-mapping>
 	
 	<filter-mapping>
 		<filter-name>management</filter-name>
