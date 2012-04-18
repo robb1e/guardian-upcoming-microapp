@@ -11,12 +11,14 @@ class EventTests extends RequiresRunningApplication {
   val baseUri = "http://localhost:8080"
   val eventResourceUri = "%s/event" format baseUri
 
-  def createDescription = RandomStringUtils.randomAlphabetic(8)
+  def createDescription = "description-" + RandomStringUtils.randomAlphabetic(8)
 
-  def createTitle = RandomStringUtils.randomAlphabetic(8)
+  def createTitle = "title-" + RandomStringUtils.randomAlphabetic(8)
+
+  def createHeadline = "headline-" + RandomStringUtils.randomAlphabetic(8)
 
   def createEvent(eventType: String, displayUntil: DateTime) = {
-    val event = Event(description = createDescription, title = createTitle, eventType = eventType, displayUntil = displayUntil)
+    val event = Event(description = createDescription, headline = createHeadline, title = createTitle, eventType = eventType, displayUntil = displayUntil)
     Event.upsert(event)
     event
   }
@@ -24,35 +26,36 @@ class EventTests extends RequiresRunningApplication {
   feature("Creating events") {
 
     scenario("with default options") {
-      createAndAssertEvent((description: String, title: String) => {
+      createAndAssertEvent((description: String, title: String, headline: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "title" -> title))
+        post(eventResourceUri, Map("description" -> description, "title" -> title, "headline" -> headline))
       })
     }
 
     scenario("with until date only") {
-      val event = createAndAssertEvent((description: String, title: String) => {
+      val event = createAndAssertEvent((description: String, title: String, headline: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "title" -> title, "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT"))
+        post(eventResourceUri, Map("description" -> description, "headline" -> headline, "title" -> title, "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT"))
       })
       event.displayUntil.dayOfMonth().getAsText should be("3")
     }
 
     scenario("with from and until date") {
-      val event = createAndAssertEvent((description: String, title: String) => {
+      val event = createAndAssertEvent((description: String, title: String, headline: String) => {
         when("We hit the HTTP inteface to create an event")
         post(eventResourceUri, Map("description" -> description,
           "displayUntil" -> "Fri, 3 Jan 2014 14:00:00 GMT",
           "title" -> title,
+          "headline" -> headline,
           "displayFrom" -> "Wed, 1 Jan 2014 14:00:00 GMT"))
       })
       event.displayFrom.dayOfMonth().getAsText should be("1")
     }
 
     scenario("with event type of promotion") {
-      val event = createAndAssertEvent((description: String, title: String) => {
+      val event = createAndAssertEvent((description: String, title: String, headline: String) => {
         when("We hit the HTTP inteface to create an event")
-        post(eventResourceUri, Map("description" -> description, "title" -> title, "eventType" -> "promotion"))
+        post(eventResourceUri, Map("description" -> description, "headline" -> headline, "title" -> title, "eventType" -> "promotion"))
       })
       event.eventType should be("promotion")
     }
@@ -63,10 +66,11 @@ class EventTests extends RequiresRunningApplication {
       events.head
     }
 
-    def createAndAssertEvent(create: (String, String) => Unit) = {
+    def createAndAssertEvent(create: (String, String, String) => Unit) = {
       val description = createDescription
       val title = createTitle
-      create(description, title)
+      val headline = createHeadline
+      create(description, title, headline)
       then("it should be in the database")
       val event = getEventByDescription(description)
       and("we should retrieve that event through the id")
@@ -74,6 +78,7 @@ class EventTests extends RequiresRunningApplication {
       and("we should see the event on the events page")
       get(eventResourceUri) should include(description)
       get(eventResourceUri) should include(title)
+      get(eventResourceUri) should include(headline)
       event
     }
 

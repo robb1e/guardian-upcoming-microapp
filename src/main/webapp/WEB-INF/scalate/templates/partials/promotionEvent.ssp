@@ -2,4 +2,4 @@
 <% import com.gu.presenters._ %>
 <%@ val event: Event %>
 
-<p>${event.title}</p>
+<p>${event.headline}</p>

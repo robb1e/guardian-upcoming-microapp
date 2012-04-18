@@ -5,5 +5,5 @@
 
 <time>${period}</time>
 
-<p>To go until ${event.title}</p>
+<p>${event.headline}</p>
 

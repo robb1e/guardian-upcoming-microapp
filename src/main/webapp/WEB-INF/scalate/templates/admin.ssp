@@ -9,11 +9,17 @@
 
 <form action="/event" method="post">
 	<label for="title">Title</label>
-	<input type="text" name="title" id="title" placeholder="Thanksgiving"/>
+	<input type="text" name="title" id="title" placeholder="Guardian Offer"/>
+
+	<label for="headline">Headline</label>
+	<input type="text" name="headline" id="headline" placeholder="This Thanksgiving"/>
+
     <label for="description">Description</label>
     <input type="text" name="description" id="description" placeholder="Catch the game on NBC"/>
+
     <label for="displayFrom">Display from</label>
     <input type="date" name="displayFrom" id="displayFrom" placeholder="${from}"/>
+
     <label for="displayUntil">Display until</label>
     <input type="date" name="displayUntil" id="displayUntil" placeholder="${to}"/>
 

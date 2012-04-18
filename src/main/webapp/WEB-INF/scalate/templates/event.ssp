@@ -5,7 +5,7 @@
 <%@ val diff: DateTimePeriodPresenter %>
 
 <div data-time="${event.displayUntil.getMillis}">
-${diff} to go until ${event.title}
+${diff} ${event.headline}
 </div>
 
 <div>

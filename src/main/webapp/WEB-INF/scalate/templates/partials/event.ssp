@@ -2,4 +2,4 @@
 <% import com.gu.presenters._ %>
 <%@ val event: Event %>
 
-${event.title} - ${event.description} from <time>${DateTimePresenter.rfc1123(event.displayFrom)}</time> until <time>${DateTimePresenter.rfc1123(event.displayUntil)}</time>
+${event.title} - ${event.headline} - ${event.description} from <time>${DateTimePresenter.rfc1123(event.displayFrom)}</time> until <time>${DateTimePresenter.rfc1123(event.displayUntil)}</time>

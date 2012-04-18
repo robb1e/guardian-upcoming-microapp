@@ -10,7 +10,7 @@
 </style>
 <div class="upcoming-microapp component">
 	<div class="hd">
-		<h2>Guardian ${event.eventType}</h2>
+		<h2>${event.title}</h2>
 	</div>
 	<div class="bd">
 		#if (event.eventType.toLowerCase == "promotion")
