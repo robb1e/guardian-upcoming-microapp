@@ -32,11 +32,12 @@ class UpcomingServlet extends SspScalatraKernel with ProductToJsonSupport with S
   post("/event") {
     val description = params.get("description") getOrElse halt(status = 400, reason = "no description given")
     val headline = params.get("headline") getOrElse halt(status = 400, reason = "no headline given")
+    val displayHeadlineAboveTime = params.get("displayHeadlineAboveTime") getOrElse "true"
     val title = params.get("title") getOrElse halt(status = 400, reason = "no title given")
     val displayFrom = params.get("displayFrom") map (rfc1123DateFormat.parseDateTime(_)) getOrElse new DateTime()
     val displayUntil = params.get("displayUntil") map (rfc1123DateFormat.parseDateTime(_)) getOrElse new DateTime().plusDays(1)
     val eventType = params.get("eventType") getOrElse "promotion"
-    val event = Event(description = description, headline = headline, title = title, displayFrom = displayFrom, displayUntil = displayUntil, eventType = eventType.toLowerCase)
+    val event = Event(displayHeadlineAboveTime = displayHeadlineAboveTime.toBoolean, description = description, headline = headline, title = title, displayFrom = displayFrom, displayUntil = displayUntil, eventType = eventType.toLowerCase)
     Event.upsert(event)
     redirect(request.getHeader("Referer"))
   }

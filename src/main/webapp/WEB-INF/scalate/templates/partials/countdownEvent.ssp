@@ -3,7 +3,11 @@
 <%@ val event: Event %>
 <%@ val period: DateTimePeriodPresenter %>
 
-<time>${period}</time>
-
+#if (event.displayHeadlineAboveTime)
 <p>${event.headline}</p>
+<time>${period}</time>
+#else
+<time>${period}</time>
+<p>${event.headline}</p>
+#end
 

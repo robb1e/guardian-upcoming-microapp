@@ -14,6 +14,9 @@
 	<label for="headline">Headline</label>
 	<input type="text" name="headline" id="headline" placeholder="This Thanksgiving"/>
 
+	<label for="displayTime">Display headline above countdown</label>
+	<input type="checkbox" name="displayHeadlineAboveTime" value="true" checked/>
+
     <label for="description">Description</label>
     <input type="text" name="description" id="description" placeholder="Catch the game on NBC"/>
 

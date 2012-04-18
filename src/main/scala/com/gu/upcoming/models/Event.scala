@@ -19,6 +19,7 @@ case class Event(@Key("_id") id: String = new ObjectId().toString,
   displayUntil: DateTime,
   description: String,
   title: String,
+  displayHeadlineAboveTime: Boolean = true,
   headline: String = "",
   eventType: String = "") {
 
