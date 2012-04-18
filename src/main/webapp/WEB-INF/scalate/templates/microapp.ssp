@@ -2,6 +2,7 @@
 <% import com.gu.presenters._ %>
 <%@ val event: Event %>
 <%@ val period: DateTimePeriodPresenter %>
+<%@ val slot: String = if (event.allTextFields) "slotfooter" else "" %>
 <% attributes("layout") = "" %>
 <style>
 	.upcoming-microapp .slotfooter {
@@ -18,7 +19,7 @@
 		#else
 		<% render("partials/countdownEvent.ssp", Map("event" -> event)) %>
 		#end
-		<p class="slotfooter description">${unescape(event.description)}</p>
+		<p class="${slot} description">${unescape(event.description)}</p>
 	</div>
 </div>
 #if(event.isExit)

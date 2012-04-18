@@ -65,4 +65,19 @@ class EventTest extends Suite with FeatureSpec with ShouldMatchers {
 
   }
 
+  feature("has text") {
+    scenario("The description is empty") {
+      val event = Event(description = "", title = "title", headline = "headline", displayUntil = new DateTime)
+      event.allTextFields should be(false)
+    }
+    scenario("The headline is empty") {
+      val event = Event(description = "description", title = "title", headline = "", displayUntil = new DateTime)
+      event.allTextFields should be(false)
+    }
+    scenario("All fields are not empty") {
+      val event = Event(description = "description", title = "title", headline = "headline", displayUntil = new DateTime)
+      event.allTextFields should be(true)
+    }
+  }
+
 }

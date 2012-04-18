@@ -31,6 +31,8 @@ case class Event(@Key("_id") id: String = new ObjectId().toString,
     case None => false
   }
 
+  lazy val allTextFields = description != "" && headline != ""
+
 }
 
 object HtmlHelper {
