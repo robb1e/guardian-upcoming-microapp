@@ -2,7 +2,7 @@ package com.gu.upcoming.management
 
 import com.gu.conf.ConfigurationFactory
 import com.gu.management.Manifest
-import com.gu.mongodb._
+import com.gu.conf.mongodb._
 
 object ConfigurationManager extends MongoDataSource with MongoConfiguration {
 

@@ -27,6 +27,7 @@ seq(StartScriptPlugin.startScriptForClassesSettings: _*)
 libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra" % "2.0.3",
   "org.scalatra" %% "scalatra-scalate" % "2.0.3",
+  "org.scalatra" %% "extensions" % "0.1-SNAPSHOT",
   "org.fusesource.scalate" % "scalate-core" % "1.5.3",
   "org.eclipse.jetty" % "jetty-webapp" % "7.4.5.v20110725" % "container, compile",
   "javax.servlet" % "servlet-api" % "2.5" % "provided",
@@ -37,6 +38,7 @@ libraryDependencies ++= Seq(
   "com.gu" %% "scalatra-openid-consumer" % "0.1.5",
   "com.gu" %% "configuration" % "3.7.1-SNAPSHOT",
   "com.gu" %% "integration-tools" % "1.4" % "test",
+  "com.gu" %% "mongodb-configuration" % "0.1.1-SNAPSHOT",
   "net.databinder" %% "dispatch-http" % "0.8.8" % "test",
   "org.scalatest" %% "scalatest" % "1.7.1" % "test",
   "commons-lang" % "commons-lang" % "2.2" % "test"

@@ -11,7 +11,7 @@ import org.joda.time.{ DateTimeZone, DateTime, Period }
 
 import java.util.Locale
 
-class UpcomingServlet extends GuardianScalatraKernel with ScalatraFilter {
+class UpcomingServlet extends SspScalatraKernel with ProductToJsonSupport with ScalatraFilter {
 
   get("/") {
     render("index")
